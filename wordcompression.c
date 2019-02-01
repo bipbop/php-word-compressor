@@ -18,13 +18,18 @@ PHP_FUNCTION(wordcompression_decode)
 {
 
     char *dictionary_var;
-    char *file_var;
-	char *ret;
-	short error;
+	size_t dictionary_len;
 
-    if (zend_parse_parameters(ZEND_NUM_ARGS(), "ps", &dictionary_var, &file_var) == FAILURE) {
-        RETURN_FALSE;
-    }
+    char *file_var;
+	size_t file_len;
+
+	char *ret;
+	short error = 0;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STRING(dictionary_var, dictionary_len)
+		Z_PARAM_STRING(file_var, file_len)
+    ZEND_PARSE_PARAMETERS_END();
 
 	ret = word_decompressor_string(dictionary_var, file_var, &error);
 	if (error) {
@@ -41,13 +46,19 @@ PHP_FUNCTION(wordcompression_encode)
 {
 
     char *dictionary_var;
-    char *file_var;
-	char *ret;
-	short error;
+	size_t dictionary_len;
 
-    if (zend_parse_parameters(ZEND_NUM_ARGS(), "ps", &dictionary_var, &file_var) == FAILURE) {
-        RETURN_FALSE;
-    }
+    char *file_var;
+	size_t file_len;
+
+	char *ret;
+	short error = 0;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+		Z_PARAM_STRING(dictionary_var, dictionary_len)
+		Z_PARAM_STRING(file_var, file_len)
+    ZEND_PARSE_PARAMETERS_END();
+
 
 	ret = word_compressor_string(dictionary_var, file_var, &error);
 	if (error) {
